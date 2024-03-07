@@ -36,5 +36,8 @@
     "karma-jasmine-html-reporter": "~2.0.0",
     "ng-packagr": "^15.2.2",
     "typescript": "~4.9.4"
+  },
+  "publishConfig": {
+    "@kverhoef/skeleton-loader": "https://npm.pkg.github.com"
   }
 }

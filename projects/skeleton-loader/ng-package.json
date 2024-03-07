@@ -3,5 +3,6 @@
   "dest": "../../dist/skeleton-loader",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "assets": ["./style/**"]
 }

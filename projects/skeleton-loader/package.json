@@ -1,5 +1,5 @@
 {
-  "name": "skeleton-loader",
+  "name": "@kverhoef/skeleton-loader",
   "version": "1.0.1",
   "peerDependencies": {
     "@angular/common": "^15.2.0",

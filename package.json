@@ -5,7 +5,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng-packagr -p projects/skeleton-loader/ng-package.json",
+    "package": "cd projects/skeleton-loader && npm publish",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

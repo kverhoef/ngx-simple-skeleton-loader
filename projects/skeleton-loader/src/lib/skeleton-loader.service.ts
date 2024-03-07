@@ -18,7 +18,7 @@ export class SkeletonLoaderService {
     private static CSS_CLASS_SKIP_ELEMENT = 'skip-skeleton-loader';
     private static ADDITIONAL_CSS_CLASS_ELEMENTS = ['fa-icon'];
 
-    private delayTimer?: number;
+    private delayTimer?: any;
     private delayTime = 500; // milliseconds
     private fullPageLoaderStarts = 0;
     private customLoaderStarts = 0;

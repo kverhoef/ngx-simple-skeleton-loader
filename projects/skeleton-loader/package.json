@@ -1,6 +1,6 @@
 {
   "name": "@kverhoef/skeleton-loader",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "peerDependencies": {
     "@angular/common": ">=15.x.x",
     "@angular/core": ">=15.x.x"

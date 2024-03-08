@@ -11,5 +11,10 @@
   "sideEffects": false,
   "publishConfig": {
     "@kverhoef/skeleton-loader": "https://npm.pkg.github.com"
+  },
+  "exports": {
+    ".": {
+      "scss": "scss/**"
+    }
   }
 }

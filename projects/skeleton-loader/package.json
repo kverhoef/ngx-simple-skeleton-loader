@@ -2,8 +2,8 @@
   "name": "@kverhoef/skeleton-loader",
   "version": "1.0.5",
   "peerDependencies": {
-    "@angular/common": "^15.2.0",
-    "@angular/core": "^15.2.0"
+    "@angular/common": ">=15.x.x",
+    "@angular/core": ">=15.x.x"
   },
   "dependencies": {
     "tslib": "^2.3.0"

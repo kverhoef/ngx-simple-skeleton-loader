@@ -1,6 +1,6 @@
 {
   "name": "@kverhoef/skeleton-loader",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "peerDependencies": {
     "@angular/common": ">=15.x.x",
     "@angular/core": ">=15.x.x"
@@ -13,8 +13,8 @@
     "@kverhoef/skeleton-loader": "https://npm.pkg.github.com"
   },
   "exports": {
-    ".": {
-      "scss": "scss/**"
+    "./scss": {
+      "sass": "./scss/_index.scss"
     }
   }
 }

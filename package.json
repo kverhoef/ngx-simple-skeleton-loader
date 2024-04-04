@@ -1,12 +1,12 @@
 {
   "name": "@kverhoef/skeleton-loader",
   "author": "Kevin Verhoef",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build --configuration production && sass dist/skeleton-loader/scss/index.scss dist/skeleton-loader/css/index.css",
-    "watch": "ng build --watch --configuration development",
+    "start": "ng serve example",
+    "build": "ng build skeleton-loader --configuration production",
+    "watch": "ng build skeleton-loader --watch --configuration development",
     "test": "ng test"
   },
   "dependencies": {

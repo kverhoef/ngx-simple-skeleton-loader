@@ -1,0 +1,17 @@
+<h1 class="skip-skeleton-loader">
+    Skeleton loader example
+</h1>
+
+<div #skeletonLoaderContainer>
+    <h2 class="mb-3 mt-3">Examples</h2>
+
+    <div class="d-flex mb-3">
+        <button class="tln-badge tln-badge-primary ms-3" (click)="fullPageSkeletonLoaderExample()">Full page skeleton loader example</button>
+        <button class="tln-badge tln-badge-primary ms-3" (click)="partialSkeletonLoaderExample()">Partial skeleton loader example</button>
+    </div>
+    <div>
+        <div *ngFor="let fact of catFacts">
+            {{fact.text}}
+        </div>
+    </div>
+</div>

@@ -3,4 +3,3 @@
  */
 export * from './lib/skeleton-loader.service';
 export * from './lib/skeleton-loader-http.interceptor';
-export * from './lib/skeleton-loader.module';

@@ -1,6 +1,7 @@
-import {ElementRef, EventEmitter, Injectable} from '@angular/core';
-import {Observable, take} from "rxjs";
-import {finalize} from "rxjs/operators";
+import { ApplicationRef, ComponentFactoryResolver, createComponent, ElementRef, EventEmitter, Injectable, Injector } from '@angular/core';
+import { Observable, take } from 'rxjs';
+import { finalize } from 'rxjs/operators';
+import { SkeletonLoaderStyleComponent } from './skeleton-loader-style/skeleton-loader-style.component';
 
 @Injectable({
     providedIn: 'root'
@@ -23,6 +24,15 @@ export class SkeletonLoaderService {
     private fullPageLoaderStarts = 0;
     private customLoaderStarts = 0;
     private loaderIsShown = false;
+
+    constructor(
+        private applicationRef: ApplicationRef,
+    ) {
+        // Add th style component to inject the styling for the skeleton loader
+        const hostElement = this.getRootElement();
+        const environmentInjector = applicationRef.injector;
+        createComponent(SkeletonLoaderStyleComponent, {hostElement, environmentInjector});
+    }
 
     /**
      * Do some action while blocking the UI with a skeleton loader.
@@ -117,8 +127,8 @@ export class SkeletonLoaderService {
     private getNodesToBeReplaced(node: Node | undefined): Node[] {
         let nodesToBeReplaced: Node[] = [];
         for (node = node?.firstChild || undefined; node; node = node?.nextSibling || undefined) {
-            const shouldSkipElement = (node as Element).classList.contains(SkeletonLoaderService.CSS_CLASS_SKIP_ELEMENT);
-            const shouldReplaceWithPlaceholder = node.nodeType === Node.TEXT_NODE || (node as Element).classList.contains(SkeletonLoaderService.CSS_CLASS_ADD_ELEMENT)
+            const shouldSkipElement = (node as Element).classList?.contains(SkeletonLoaderService.CSS_CLASS_SKIP_ELEMENT);
+            const shouldReplaceWithPlaceholder = node.nodeType === Node.TEXT_NODE || (node as Element).classList?.contains(SkeletonLoaderService.CSS_CLASS_ADD_ELEMENT)
             if (!shouldSkipElement && shouldReplaceWithPlaceholder) {
                 nodesToBeReplaced.push(node);
             } else if (!shouldSkipElement) {
@@ -132,7 +142,7 @@ export class SkeletonLoaderService {
         this.loaderIsShown = true;
         this.onShowFullPageLoader.emit();
 
-        const rootElement = document.getElementsByTagName('app-root')?.[0] as HTMLElement;
+        const rootElement = this.getRootElement();
         if (rootElement) {
             this.showSkeletonLoader(rootElement);
         }
@@ -142,11 +152,15 @@ export class SkeletonLoaderService {
         if (this.loaderIsShown) {
             this.loaderIsShown = false;
             this.onHideFullPageLoader.emit();
-            const rootElement = document.getElementsByTagName('app-root')?.[0] as HTMLElement;
+            const rootElement = this.getRootElement();
             if (rootElement) {
                 this.hideSkeletonLoader(rootElement);
             }
         }
+    }
+
+    private getRootElement(): HTMLElement {
+        return document.getElementsByTagName('app-root')?.[0] as HTMLElement;
     }
 
 }

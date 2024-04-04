@@ -1,11 +1,11 @@
 {
   "name": "@kverhoef/skeleton-loader",
   "author": "Kevin Verhoef",
-  "version": "1.0.3",
+  "version": "1.0.9",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --configuration production && sass dist/skeleton-loader/scss/index.scss dist/skeleton-loader/css/index.css",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -34,6 +34,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
     "ng-packagr": "^17.2.1",
+    "sass": "^1.74.1",
     "typescript": "~5.3.3"
   },
   "publishConfig": {

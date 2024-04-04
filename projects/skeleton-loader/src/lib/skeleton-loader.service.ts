@@ -16,14 +16,13 @@ export class SkeletonLoaderService {
     private static CSS_CLASS_SHIMMER = 'skeleton-loader-shimmer';
     private static CSS_CLASS_REPLACED_ELEMENT = 'skeleton-loader-replaced-element';
     private static CSS_CLASS_SKIP_ELEMENT = 'skip-skeleton-loader';
-    private static ADDITIONAL_CSS_CLASS_ELEMENTS = ['fa-icon'];
+    private static CSS_CLASS_ADD_ELEMENT = 'add-skeleton-loader';
 
     private delayTimer?: any;
     private delayTime = 500; // milliseconds
     private fullPageLoaderStarts = 0;
     private customLoaderStarts = 0;
     private loaderIsShown = false;
-
 
     /**
      * Do some action while blocking the UI with a skeleton loader.
@@ -35,7 +34,6 @@ export class SkeletonLoaderService {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public loadWithSkeleton<G>(observable: Observable<G>, elementRef: ElementRef, dummyLoaderData?: any): Observable<G> {
         this.customLoaderStarts++;
-
         return new Observable((wrapperObserver) => {
             setTimeout(() => {
                 if (dummyLoaderData) {
@@ -93,8 +91,8 @@ export class SkeletonLoaderService {
         div.classList.add(SkeletonLoaderService.CSS_CLASS_SHIMMER);
         rootSkeletonElement.appendChild(div);
 
-        const textNodes: Node[] = this.textNodesUnder(rootSkeletonElement);
-        textNodes.forEach(node => {
+        const nodesToBeReplaced: Node[] = this.getNodesToBeReplaced(rootSkeletonElement);
+        nodesToBeReplaced.forEach(node => {
             if (!(node.parentNode as Element).classList.contains(SkeletonLoaderService.CSS_CLASS_REPLACED_ELEMENT)) {
                 const span = document.createElement('loader');
                 span.classList.add(SkeletonLoaderService.CSS_CLASS_REPLACED_ELEMENT);
@@ -116,17 +114,18 @@ export class SkeletonLoaderService {
         });
     }
 
-    private textNodesUnder(node: Node | undefined): Node[] {
-        let all: Node[] = [];
+    private getNodesToBeReplaced(node: Node | undefined): Node[] {
+        let nodesToBeReplaced: Node[] = [];
         for (node = node?.firstChild || undefined; node; node = node?.nextSibling || undefined) {
-            if ((node.nodeType === Node.TEXT_NODE || SkeletonLoaderService.ADDITIONAL_CSS_CLASS_ELEMENTS.some(e => node?.nodeName === e.toUpperCase())) &&
-                !(node.parentNode as Element).classList.contains(SkeletonLoaderService.CSS_CLASS_SKIP_ELEMENT)) {
-                    all.push(node);
-            } else if (!(node.parentNode as Element).classList.contains(SkeletonLoaderService.CSS_CLASS_SKIP_ELEMENT)) {
-                all = all.concat(this.textNodesUnder(node));
+            const shouldSkipElement = (node as Element).classList.contains(SkeletonLoaderService.CSS_CLASS_SKIP_ELEMENT);
+            const shouldReplaceWithPlaceholder = node.nodeType === Node.TEXT_NODE || (node as Element).classList.contains(SkeletonLoaderService.CSS_CLASS_ADD_ELEMENT)
+            if (!shouldSkipElement && shouldReplaceWithPlaceholder) {
+                nodesToBeReplaced.push(node);
+            } else if (!shouldSkipElement) {
+                nodesToBeReplaced = nodesToBeReplaced.concat(this.getNodesToBeReplaced(node));
             }
         }
-        return all;
+        return nodesToBeReplaced;
     }
 
     private showFullPageLoader(): void {

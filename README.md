@@ -1,27 +1,43 @@
-# SkeletonLoader
+# Skeleton loader
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.6.
+## Full page skeleton loader
 
-## Development server
+The full page skeleton loader is the simplest way to add skeleton loading to your application.
+All that has to be done is implement the interceptor (see below for the code example). Once added it will watch for http calls.
+While http calls are requesting the skeleton loader will cover the whole page and block ui-input.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+```{ provide: HTTP_INTERCEPTORS, useClass: SkeletonLoaderHttpInterceptor, multi: true }```
 
-## Code scaffolding
+## Customizing the skeleton loader
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Excluding parts for the skeleton loading placeholder
 
-## Build
+Parts can be excluded for skeleton loading by adding the css class **skip-skeleton-loader** to the element.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```<div class="skip-skeleton-loader">This part will not be covered by the skeleton loader</div>```
 
-## Running unit tests
+### Add elements to be replaced by the skeleton loader
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+By default only text elements will be replaced by the skeleton loader placeholder. To add any other element, add the class **add-skeleton-loader**.
 
-## Running end-to-end tests
+```<div class="add-skeleton-loader">This part will not be covered by the skeleton loader</div>```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Partial skeleton loader ##
+You can get more control to where the skeleton loader should be placed. This requires to specify which element should be blocked by the skeleton loader and which observable it should observe.
 
-## Further help
+```
+// 1 Reference a html element for the skeleton loader placement
+@ViewChild('skeletonLoaderContainer') skeletonLoaderContainer: ElementRef;
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+// 2 Add the SkeletonLoaderService
+constructor(private skeletonLoaderService: SkeletonLoaderService, private httpClient: HttpClient)
+
+// 3 Use the loadWithSkeleton function
+someMethod() {
+    this.skeletonLoaderService.loadWithSkeleton(
+        httpClient.get('http://example.com'),
+        this.skeletonLoaderContainer
+    ).subscribe();
+}
+```
+

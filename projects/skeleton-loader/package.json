@@ -1,5 +1,5 @@
 {
-  "name": "@kverhoef/skeleton-loader",
+  "name": "@kverhoef/ngx-simple-skeleton-loader",
   "version": "1.0.10",
   "peerDependencies": {
     "@angular/common": ">=15.x.x",
@@ -10,6 +10,6 @@
   },
   "sideEffects": false,
   "publishConfig": {
-    "@kverhoef/skeleton-loader": "https://npm.pkg.github.com"
+    "@kverhoef/ngx-simple-skeleton-loader": "https://npm.pkg.github.com"
   }
 }

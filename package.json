@@ -1,5 +1,5 @@
 {
-  "name": "@kverhoef/skeleton-loader",
+  "name": "@kverhoef/ngx-simple-skeleton-loader",
   "author": "Kevin Verhoef",
   "version": "1.0.10",
   "scripts": {
@@ -38,6 +38,6 @@
     "typescript": "~5.3.3"
   },
   "publishConfig": {
-    "@kverhoef/skeleton-loader": "https://npm.pkg.github.com"
+    "@kverhoef/ngx-simple-skeleton-loader": "https://npm.pkg.github.com"
   }
 }

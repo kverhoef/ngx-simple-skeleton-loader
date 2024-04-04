@@ -7,7 +7,7 @@
     "start": "ng serve example",
     "build": "ng build skeleton-loader --configuration production",
     "watch": "ng build skeleton-loader --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test skeleton-loader"
   },
   "dependencies": {
     "@angular/animations": "^17.2.4",
